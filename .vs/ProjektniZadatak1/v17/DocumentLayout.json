@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0DC53EDC-736D-428C-B3DF-AB41E231D47A}|ProjektniZadatak1\\ProjektniZadatak1.vcxproj|C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\ProjektniZadatak1\\zadatak1.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0DC53EDC-736D-428C-B3DF-AB41E231D47A}|ProjektniZadatak1\\ProjektniZadatak1.vcxproj|solutionrelative:ProjektniZadatak1\\zadatak1.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DC53EDC-736D-428C-B3DF-AB41E231D47A}|ProjektniZadatak1\\ProjektniZadatak1.vcxproj|C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\ProjektniZadatak1\\popis.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{0DC53EDC-736D-428C-B3DF-AB41E231D47A}|ProjektniZadatak1\\ProjektniZadatak1.vcxproj|solutionrelative:ProjektniZadatak1\\popis.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "zadatak1.c",
+              "DocumentMoniker": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\ProjektniZadatak1\\zadatak1.c",
+              "RelativeDocumentMoniker": "ProjektniZadatak1\\zadatak1.c",
+              "ToolTip": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\ProjektniZadatak1\\zadatak1.c",
+              "RelativeToolTip": "ProjektniZadatak1\\zadatak1.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-12T19:33:29.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "popis.txt",
+              "DocumentMoniker": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\ProjektniZadatak1\\popis.txt",
+              "RelativeDocumentMoniker": "ProjektniZadatak1\\popis.txt",
+              "ToolTip": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak1\\ProjektniZadatak1\\popis.txt",
+              "RelativeToolTip": "ProjektniZadatak1\\popis.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-10-12T19:33:41.511Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
