@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{66F5EFAC-0561-4DA1-9768-8780CC1D9D25}|Project5\\Project5.vcxproj|C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\Project5\\zad5.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{66F5EFAC-0561-4DA1-9768-8780CC1D9D25}|Project5\\Project5.vcxproj|solutionrelative:Project5\\zad5.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66F5EFAC-0561-4DA1-9768-8780CC1D9D25}|Project5\\Project5.vcxproj|C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\Project5\\postfix.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{66F5EFAC-0561-4DA1-9768-8780CC1D9D25}|Project5\\Project5.vcxproj|solutionrelative:Project5\\postfix.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "postfix.txt",
+              "DocumentMoniker": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\Project5\\postfix.txt",
+              "RelativeDocumentMoniker": "Project5\\postfix.txt",
+              "ToolTip": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\Project5\\postfix.txt",
+              "RelativeToolTip": "Project5\\postfix.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-11-11T14:41:21.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "zad5.c",
+              "DocumentMoniker": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\Project5\\zad5.c",
+              "RelativeDocumentMoniker": "Project5\\zad5.c",
+              "ToolTip": "C:\\Users\\ninam\\OneDrive\\Radna povr\u0161ina\\StrukturePodataka\\ProjektniZadatak5\\Project5\\Project5\\zad5.c",
+              "RelativeToolTip": "Project5\\zad5.c",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAHEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-11-10T18:42:56.722Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
