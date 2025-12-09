@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\zad6.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|solutionrelative:Zadatak6\\zad6.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun2.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|solutionrelative:Zadatak6\\racun2.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun1.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|solutionrelative:Zadatak6\\racun1.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun3.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|solutionrelative:Zadatak6\\racun3.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racuni.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2873F109-80C9-4B1B-802F-437A26C3ED35}|Zadatak6\\Zadatak6.vcxproj|solutionrelative:Zadatak6\\racuni.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "racun3.txt",
+              "DocumentMoniker": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun3.txt",
+              "RelativeDocumentMoniker": "Zadatak6\\racun3.txt",
+              "ToolTip": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun3.txt",
+              "RelativeToolTip": "Zadatak6\\racun3.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-12-09T18:50:30.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "racun2.txt",
+              "DocumentMoniker": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun2.txt",
+              "RelativeDocumentMoniker": "Zadatak6\\racun2.txt",
+              "ToolTip": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun2.txt",
+              "RelativeToolTip": "Zadatak6\\racun2.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-12-09T18:12:02.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "zad6.c",
+              "DocumentMoniker": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\zad6.c",
+              "RelativeDocumentMoniker": "Zadatak6\\zad6.c",
+              "ToolTip": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\zad6.c",
+              "RelativeToolTip": "Zadatak6\\zad6.c",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAAAKEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-12-09T16:26:27.109Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "racun1.txt",
+              "DocumentMoniker": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun1.txt",
+              "RelativeDocumentMoniker": "Zadatak6\\racun1.txt",
+              "ToolTip": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racun1.txt",
+              "RelativeToolTip": "Zadatak6\\racun1.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-12-09T18:11:47.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "racuni.txt",
+              "DocumentMoniker": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racuni.txt",
+              "RelativeDocumentMoniker": "Zadatak6\\racuni.txt",
+              "ToolTip": "C:\\Users\\ninam\\Desktop\\StrukturePodataka\\ProjektniZadatak6\\Zadatak6\\Zadatak6\\racuni.txt",
+              "RelativeToolTip": "Zadatak6\\racuni.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-12-09T18:48:38.359Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
