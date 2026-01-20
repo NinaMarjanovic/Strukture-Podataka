@@ -29,46 +29,42 @@ typedef struct cityList {
 typedef struct countryTree {
     char name[MAX];
     char filename[MAXFILE];
-    CityList* cities;             /* sortirana lista gradova */
+    CityList* cities;
     struct countryTree* left;
     struct countryTree* right;
 } CountryTree;
 
-
-void loadCitiesIntoList(CityList** head, const char* filename);
-void menu_B(CountryTree* root);
-void menu_A(CountryList* head);
-void loadAll_B(CountryTree** root, const char* drzaveFile);
-void loadAll_A(CountryList** head, const char* drzaveFile);
-void loadCitiesIntoBT(CityNode** root, const char* filename);
-void freeAllB(CountryTree* root);
-void printAllB(CountryTree* root);
+int loadCitiesIntoList(CityList** head, const char* filename);
+int menu_B(CountryTree* root);
+int menu_A(CountryList* head);
+int loadAll_B(CountryTree** root, const char* drzaveFile);
+int loadAll_A(CountryList** head, const char* drzaveFile);
+int loadCitiesIntoBT(CityNode** root, const char* filename);
+int freeAllB(CountryTree* root);
+int printAllB(CountryTree* root);
 CountryTree* findCountryInTree(CountryTree* root, const char* name);
 CountryTree* insertCountryBST(CountryTree* root, const char* name, const char* filename);
 CountryTree* createCountryTreeNode(const char* name, const char* filename);
-void freeCityList(CityList* head);
-void printCityListAbove(CityList* head, int threshold);
-void printCityList(CityList* head);
-void addCitySortedList(CityList** head, const char* name, int pop);
+int freeCityList(CityList* head);
+int printCityListAbove(CityList* head, int threshold);
+int printCityList(CityList* head);
+int addCitySortedList(CityList** head, const char* name, int pop);
 CityList* createCityListNode(const char* name, int pop);
-void freeAllA(CountryList* head);
-void printAllA(CountryList* head);
+int freeAllA(CountryList* head);
+int printAllA(CountryList* head);
 CountryList* findCountryInList(CountryList* head, const char* name);
-void addCountrySortedList(CountryList** head, CountryList* newNode);
+int addCountrySortedList(CountryList** head, CountryList* newNode);
 CountryList* createCountryListNode(const char* name, const char* filename);
 int compareCity(int popA, const char* nameA, int popB, const char* nameB);
 CityNode* createCityNode(const char* name, int pop);
 CityNode* insertCityToBT(CityNode* root, const char* name, int pop);
-void printCityBT(CityNode* root);
-void printCityBSTAbove(CityNode* root, int limit);
-void freeCityBST(CityNode* root);
+int printCityBT(CityNode* root);
+int printCityBSTAbove(CityNode* root, int limit);
+int freeCityBST(CityNode* root);
 
 int main() {
     int mode;
-    printf("Odaberi dio zadatka:\n");
-    printf("1 - A (lista drzava + BST gradova)\n");
-    printf("2 - B (BST drzava + lista gradova)\n");
-    printf("Odabir: ");
+    printf("1 - A\n2 - B\nOdabir: ");
     scanf("%d", &mode);
 
     if (mode == 1) {
@@ -83,92 +79,69 @@ int main() {
         menu_B(root);
         freeAllB(root);
     }
-    else {
-        printf("Nepostojeca opcija.\n");
-    }
-
     return 0;
 }
 
+
 int compareCity(int popA, const char* nameA, int popB, const char* nameB) {
-    if (popA < popB)
-        return -1;
-    if (popA > popB)
-        return 1;
+    if (popA < popB) return -1;
+    if (popA > popB) return 1;
     return strcmp(nameA, nameB);
 }
 
-//A)
-//novi cvor za grad
+
 CityNode* createCityNode(const char* name, int pop) {
-    CityNode* n = (CityNode*)malloc(sizeof(CityNode));
-    if (n == NULL) {
-        printf("Greska u alokaciji\n");
-        return NULL;
-    }
+    CityNode* n = malloc(sizeof(CityNode));
+    if (!n) return NULL;
     strcpy(n->name, name);
     n->pop = pop;
-    n->left = NULL;
-    n->right = NULL;
+    n->left = n->right = NULL;
     return n;
 }
 
-//ubacuje grad u bibnasrno stablo
 CityNode* insertCityToBT(CityNode* root, const char* name, int pop) {
-    if (root == NULL) {
-        return createCityNode(name, pop);
-    }
+    if (!root) return createCityNode(name, pop);
 
-    int cmp = compareCity(pop, name, root->pop, root->name);
+    int c = compareCity(pop, name, root->pop, root->name);
+    if (c < 0) root->left = insertCityToBT(root->left, name, pop);
+    else if (c > 0) root->right = insertCityToBT(root->right, name, pop);
 
-    if (cmp < 0)
-        root->left = insertCityToBT(root->left, name, pop);
-    else if (cmp > 0)
-        root->right = insertCityToBT(root->right, name, pop);
-    else {
-
-    }
     return root;
 }
-//ispis gradova inorder
-void printCityBT(CityNode* root) {
-    if (root == NULL) return;
 
+int printCityBT(CityNode* root) {
+    if (!root) return 0;
     printCityBT(root->left);
-
     printf("   - %-15s %d\n", root->name, root->pop);
-
     printCityBT(root->right);
+    return 0;
 }
 
-void printCityBSTAbove(CityNode* root, int limit) {
-    if (root == NULL) return;
+int printCityBSTAbove(CityNode* root, int limit) {
+    if (!root) return 0;
 
-    if (root->pop <= limit) {
-
-        printCityBSTAbove(root->right, limit);
-    }
-    else {
-
+    if (root->pop > limit) {
         printCityBSTAbove(root->left, limit);
         printf("   - %-15s %d\n", root->name, root->pop);
         printCityBSTAbove(root->right, limit);
     }
+    else {
+        printCityBSTAbove(root->right, limit);
+    }
+    return 0;
 }
-void freeCityBST(CityNode* root) {
-    if (!root) return;
 
+int freeCityBST(CityNode* root) {
+    if (!root) return 0;
     freeCityBST(root->left);
     freeCityBST(root->right);
     free(root);
+    return 0;
 }
-//cvor drzave za listu
+
 CountryList* createCountryListNode(const char* name, const char* filename) {
-    CountryList* c = (CountryList*)malloc(sizeof(CountryList));
-    if (!c) {
-        printf("Greska u alokaciji \n");
-        return NULL;
-    }
+    CountryList* c = malloc(sizeof(CountryList));
+    if (!c) return NULL;
     strcpy(c->name, name);
     strcpy(c->filename, filename);
     c->root = NULL;
@@ -176,316 +149,226 @@ CountryList* createCountryListNode(const char* name, const char* filename) {
     return c;
 }
 
-void addCountrySortedList(CountryList** head, CountryList* newNode) {
-    if (*head == NULL || strcmp(newNode->name, (*head)->name) < 0) {
+int addCountrySortedList(CountryList** head, CountryList* newNode) {
+    if (!*head || strcmp(newNode->name, (*head)->name) < 0) {
         newNode->next = *head;
         *head = newNode;
-        return;
+        return 0;
     }
 
     CountryList* tmp = *head;
-    while (tmp->next != NULL && strcmp(tmp->next->name, newNode->name) <= 0) {
+    while (tmp->next && strcmp(tmp->next->name, newNode->name) <= 0)
         tmp = tmp->next;
-    }
+
     newNode->next = tmp->next;
     tmp->next = newNode;
+    return 0;
 }
 
 CountryList* findCountryInList(CountryList* head, const char* name) {
-    while (head != NULL) {
-        if (strcmp(head->name, name) == 0) return head;
+    while (head) {
+        if (!strcmp(head->name, name)) return head;
         head = head->next;
     }
     return NULL;
 }
 
-void printAllA(CountryList* head) {
-    printf("\n=== ISPIS (A) ===\n");
-    while (head != NULL) {
+int printAllA(CountryList* head) {
+    while (head) {
         printf("\nDrzava: %s\n", head->name);
         printCityBT(head->root);
         head = head->next;
     }
+    return 0;
 }
-void freeAllA(CountryList* head) {
-    while (head != NULL) {
+
+int freeAllA(CountryList* head) {
+    while (head) {
         CountryList* next = head->next;
         freeCityBST(head->root);
         free(head);
         head = next;
     }
+    return 0;
 }
 
-
-//B)
 CityList* createCityListNode(const char* name, int pop) {
-    CityList* n = (CityList*)malloc(sizeof(CityList));
-    if (!n) {
-        printf("Greska u alokaciji\n");
-        return NULL;
-    }
+    CityList* n = malloc(sizeof(CityList));
+    if (!n) return NULL;
     strcpy(n->name, name);
     n->pop = pop;
     n->next = NULL;
     return n;
 }
 
-void addCitySortedList(CityList** head, const char* name, int pop) {
-    CityList* newNode = createCityListNode(name, pop);
-    if (!newNode) return;
+int addCitySortedList(CityList** head, const char* name, int pop) {
+    CityList* n = createCityListNode(name, pop);
+    if (!n) return -1;
 
-    if (*head == NULL || compareCity(pop, name, (*head)->pop, (*head)->name) < 0) {
-        newNode->next = *head;
-        *head = newNode;
-        return;
+    if (!*head || compareCity(pop, name, (*head)->pop, (*head)->name) < 0) {
+        n->next = *head;
+        *head = n;
+        return 0;
     }
 
     CityList* tmp = *head;
-    while (tmp->next != NULL &&
-        compareCity(pop, name, tmp->next->pop, tmp->next->name) > 0) {
+    while (tmp->next &&
+        compareCity(pop, name, tmp->next->pop, tmp->next->name) > 0)
         tmp = tmp->next;
-    }
-    newNode->next = tmp->next;
-    tmp->next = newNode;
+
+    n->next = tmp->next;
+    tmp->next = n;
+    return 0;
 }
 
-void printCityList(CityList* head) {
-    while (head != NULL) {
+int printCityList(CityList* head) {
+    while (head) {
         printf("   - %-15s %d\n", head->name, head->pop);
         head = head->next;
     }
+    return 0;
 }
 
-void printCityListAbove(CityList* head, int threshold) {
-    while (head != NULL && head->pop <= threshold) head = head->next;
-    while (head != NULL) {
-        printf("   - %-15s %d\n", head->name, head->pop);
-        head = head->next;
-    }
+int printCityListAbove(CityList* head, int threshold) {
+    while (head && head->pop <= threshold) head = head->next;
+    printCityList(head);
+    return 0;
 }
 
-void freeCityList(CityList* head) {
-    while (head != NULL) {
+int freeCityList(CityList* head) {
+    while (head) {
         CityList* next = head->next;
         free(head);
         head = next;
     }
+    return 0;
 }
 
 CountryTree* createCountryTreeNode(const char* name, const char* filename) {
-    CountryTree* n = (CountryTree*)malloc(sizeof(CountryTree));
-    if (!n) {
-        printf("Greska u alokaciji\n");
-        return NULL;
-    }
+    CountryTree* n = malloc(sizeof(CountryTree));
+    if (!n) return NULL;
     strcpy(n->name, name);
     strcpy(n->filename, filename);
     n->cities = NULL;
     n->left = n->right = NULL;
     return n;
 }
+
 CountryTree* insertCountryBST(CountryTree* root, const char* name, const char* filename) {
-    if (root == NULL) return createCountryTreeNode(name, filename);
+    if (!root) return createCountryTreeNode(name, filename);
 
     int c = strcmp(name, root->name);
     if (c < 0) root->left = insertCountryBST(root->left, name, filename);
     else if (c > 0) root->right = insertCountryBST(root->right, name, filename);
-    else {
-
-    }
     return root;
 }
 
 CountryTree* findCountryInTree(CountryTree* root, const char* name) {
-    while (root != NULL) {
-        int c = strcmp(name, root->name);
-        if (c == 0) return root;
-        if (c < 0) root = root->left;
-        else root = root->right;
-    }
-    return NULL;
+    if (!root) return NULL;
+    int c = strcmp(name, root->name);
+    if (!c) return root;
+    if (c < 0) return findCountryInTree(root->left, name);
+    return findCountryInTree(root->right, name);
 }
-void printAllB(CountryTree* root) {
-    if (root == NULL) return;
-    printAllB(root->left);
 
+int printAllB(CountryTree* root) {
+    if (!root) return 0;
+    printAllB(root->left);
     printf("\nDrzava: %s\n", root->name);
     printCityList(root->cities);
-
     printAllB(root->right);
+    return 0;
 }
-void freeAllB(CountryTree* root) {
-    if (!root) return;
+
+int freeAllB(CountryTree* root) {
+    if (!root) return 0;
     freeAllB(root->left);
     freeAllB(root->right);
     freeCityList(root->cities);
     free(root);
+    return 0;
 }
 
-void loadCitiesIntoBT(CityNode** root, const char* filename) {
+int loadCitiesIntoBT(CityNode** root, const char* filename) {
     FILE* f = fopen(filename, "r");
-    if (!f) {
-        printf("Greska otvaranja file-a \n");
-        return;
-    }
+    if (!f) return -1;
 
     char city[MAX];
     int pop;
-
-    while (fscanf(f, "%63s %d", city, &pop) == 2) {
+    while (fscanf(f, "%63s %d", city, &pop) == 2)
         *root = insertCityToBT(*root, city, pop);
-    }
+
     fclose(f);
+    return 0;
 }
 
-void loadCitiesIntoList(CityList** head, const char* filename) {
+int loadCitiesIntoList(CityList** head, const char* filename) {
     FILE* f = fopen(filename, "r");
-    if (!f) {
-        printf("Greska otvaranja file-a \n");
-        return;
-    }
+    if (!f) return -1;
 
     char city[MAX];
     int pop;
-
-    while (fscanf(f, "%63s %d", city, &pop) == 2) {
+    while (fscanf(f, "%63s %d", city, &pop) == 2)
         addCitySortedList(head, city, pop);
-    }
+
     fclose(f);
+    return 0;
 }
 
-void loadAll_A(CountryList** head, const char* drzaveFile) {
-    FILE* f = fopen(drzaveFile, "r");
-    if (!f) {
-        printf("Greska otvaranja \n");
-        return;
-    }
+int loadAll_A(CountryList** head, const char* file) {
+    FILE* f = fopen(file, "r");
+    if (!f) return -1;
 
-    char cname[MAX];
-    char cfile[MAXFILE];
-
-    while (fscanf(f, "%63s %127s", cname, cfile) == 2) {
-        CountryList* c = createCountryListNode(cname, cfile);
-        if (!c) continue;
-
-        loadCitiesIntoBT(&c->root, cfile);
+    char name[MAX], fname[MAXFILE];
+    while (fscanf(f, "%63s %127s", name, fname) == 2) {
+        CountryList* c = createCountryListNode(name, fname);
+        loadCitiesIntoBT(&c->root, fname);
         addCountrySortedList(head, c);
     }
-
     fclose(f);
+    return 0;
 }
 
-void loadAll_B(CountryTree** root, const char* drzaveFile) {
-    FILE* f = fopen(drzaveFile, "r");
-    if (!f) {
-        printf("Greska otvaranja \n");
-        return;
+int loadAll_B(CountryTree** root, const char* file) {
+    FILE* f = fopen(file, "r");
+    if (!f) return -1;
+
+    char name[MAX], fname[MAXFILE];
+    while (fscanf(f, "%63s %127s", name, fname) == 2) {
+        *root = insertCountryBST(*root, name, fname);
+        CountryTree* c = findCountryInTree(*root, name);
+        loadCitiesIntoList(&c->cities, fname);
     }
-
-    char cname[MAX];
-    char cfile[MAXFILE];
-
-    while (fscanf(f, "%63s %127s", cname, cfile) == 2) {
-        *root = insertCountryBST(*root, cname, cfile);
-
-        CountryTree* node = findCountryInTree(*root, cname);
-        if (node) {
-            loadCitiesIntoList(&node->cities, cfile);
-        }
-    }
-
     fclose(f);
+    return 0;
 }
-void menu_A(CountryList* head) {
-    int choice;
-    char country[MAX];
-    int threshold;
 
+int menu_A(CountryList* head) {
+    int ch, x;
+    char name[MAX];
     do {
-        printf("\n--- IZBORNIK (A) ---\n");
-        printf("1 - Ispis svih drzava i gradova\n");
-        printf("2 - Pretrazi gradove drzave po pragu stanovnika (pop > X)\n");
-        printf("0 - Izlaz\n");
-        printf("Odabir: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-        case 1:
-            printAllA(head);
-            break;
-
-        case 2:
-            printf("Unesi drzavu: ");
-            scanf("%63s", country);
-            printf("Unesi prag stanovnika: ");
-            scanf("%d", &threshold);
-
-            {
-                CountryList* c = findCountryInList(head, country);
-                if (!c) {
-                    printf("Nema drzave '%s'.\n", country);
-                }
-                else {
-                    printf("\nGradovi u %s s pop > %d:\n", c->name, threshold);
-                    printCityBSTAbove(c->root, threshold);
-                }
-            }
-            break;
-
-        case 0:
-            printf("Izlaz.\n");
-            break;
-
-        default:
-            printf("Nepostojeca opcija.\n");
+        scanf("%d", &ch);
+        if (ch == 1) printAllA(head);
+        if (ch == 2) {
+            scanf("%s %d", name, &x);
+            CountryList* c = findCountryInList(head, name);
+            if (c) printCityBSTAbove(c->root, x);
         }
-
-    } while (choice != 0);
+    } while (ch);
+    return 0;
 }
-void menu_B(CountryTree* root) {
-    int choice;
-    char country[MAX];
-    int threshold;
 
+int menu_B(CountryTree* root) {
+    int ch, x;
+    char name[MAX];
     do {
-        printf("\n--- IZBORNIK (B) ---\n");
-        printf("1 - Ispis svih drzava i gradova\n");
-        printf("2 - Pretrazi gradove drzave po pragu stanovnika (pop > X)\n");
-        printf("0 - Izlaz\n");
-        printf("Odabir: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-        case 1:
-            printf("\n=== ISPIS (B) ===\n");
-            printAllB(root);
-            break;
-
-        case 2:
-            printf("Unesi drzavu: ");
-            scanf("%63s", country);
-            printf("Unesi prag stanovnika: ");
-            scanf("%d", &threshold);
-
-            {
-                CountryTree* c = findCountryInTree(root, country);
-                if (!c) {
-                    printf("Nema drzave '%s'.\n", country);
-                }
-                else {
-                    printf("\nGradovi u %s s pop > %d:\n", c->name, threshold);
-                    printCityListAbove(c->cities, threshold);
-                }
-            }
-            break;
-
-        case 0:
-            printf("Izlaz.\n");
-            break;
-
-        default:
-            printf("Nepostojeca opcija.\n");
+        scanf("%d", &ch);
+        if (ch == 1) printAllB(root);
+        if (ch == 2) {
+            scanf("%s %d", name, &x);
+            CountryTree* c = findCountryInTree(root, name);
+            if (c) printCityListAbove(c->cities, x);
         }
-
-    } while (choice != 0);
+    } while (ch);
+    return 0;
 }
