@@ -1,216 +1,270 @@
-//8 zadatak
-#define _CRT_SECURE_NO_WARNINGS 
-#include <stdio.h>             
-#include <stdlib.h>           
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-struct treeNode;
+#define MAX 64
+#define MAXFILE 128
+#define TABLE_SIZE 11
 
-typedef struct treeNode Node;       
-typedef struct treeNode* Tree;   
-typedef struct treeNode* Position; 
+typedef struct CityNode {
+    char name[MAX];
+    int pop;
+    struct CityNode* left;
+    struct CityNode* right;
+} CityNode;
 
-struct treeNode {
-    int value;   
-    Tree left;   
-    Tree right; 
-};
+typedef struct CountryNode {
+    char name[MAX];
+    char filename[MAXFILE];
+    CityNode* cities;
+    struct CountryNode* next;
+} CountryNode;
 
-int Menu(Tree* tree);         
-Tree DeleteNode(int x, Tree tree); 
-int PrintInorder(Tree tree);    
-int PrintPreorder(Tree tree);    
-int PrintPostorder(Tree tree);   
-int PrintLevelOrder(Tree tree);  
-int PrintLevel(Tree tree, int level); 
-int Height(Tree tree);           
-Tree InsertNode(int x, Tree tree); 
-Tree CreateNode(int x);       
-Position FindNode(int x, Tree tree); 
-Position FindMin(Tree tree);     
-Position FindMax(Tree tree);      
-Tree CreateEmptyTree(Tree tree);  
-int DeleteAll(Tree tree);    
+typedef struct HashTable {
+    int size;
+    CountryNode* buckets[TABLE_SIZE];
+} HashTable;
+
+int hashKey(char* countryName, int size);
+int initHash(HashTable* ht);
+int compareCity(int pop1, char* name1, int pop2, char* name2);
+CityNode* createCity(char* name, int pop);
+CityNode* insertCity(CityNode* root, char* name, int pop);
+int printCityBST(CityNode* root);
+int printCityAbove(CityNode* root, int limit);
+int freeCityBST(CityNode* root);
+CountryNode* createCountry(char* name, char* filename);
+int insertCountrySorted(CountryNode** head, CountryNode* newNode);
+CountryNode* findCountry(HashTable* ht, char* countryName);
+int freeCountryList(CountryNode* head);
+int loadCities(CityNode** root, char* filename);
+int loadCountries(HashTable* ht, char* drzaveFile);
+int printAll(HashTable* ht);
+int menu(HashTable* ht);
 
 int main() {
-    Tree tree = CreateEmptyTree(NULL); 
-    Menu(&tree);                    
-    DeleteAll(tree);                 
-    return 0;                       
-}
+    HashTable ht;
+    int i;
 
-Tree CreateEmptyTree(Tree tree) {
-    (void)tree;     
-    return NULL;      
-}
+    initHash(&ht);
+    loadCountries(&ht, "drzave.txt");
+    menu(&ht);
 
-Position FindMin(Tree tree) {
-    if (tree == NULL) return NULL;   
-    while (tree->left != NULL)       
-        tree = tree->left;               
-    return tree;                         
-}
-
-Position FindMax(Tree tree) {
-    if (tree == NULL) return NULL;       
-    while (tree->right != NULL)          
-        tree = tree->right;              
-    return tree;                         
-}
-
-Position FindNode(int x, Tree tree) {
-    while (tree != NULL) {              
-        if (x == tree->value) return tree;
-        if (x < tree->value) tree = tree->left;
-        else tree = tree->right;        
+    for (i = 0; i < ht.size; i++) {
+        freeCountryList(ht.buckets[i]);
     }
-    return NULL; 
+
+    return 0;
 }
 
-Tree CreateNode(int x) {
-    Tree node = (Tree)malloc(sizeof(Node)); 
-    if (node == NULL) printf("greska u alokaciji mem");
-    node->value = x;     
-    node->left = node->right = NULL;
-    return node;       
-}
-
-Tree InsertNode(int x, Tree tree) {
-    if (tree == NULL) return CreateNode(x); //ako nema mjesta, dodaj novi čvor
-    if (x < tree->value) tree->left = InsertNode(x, tree->left);  //ako manji → lijevo
-    else if (x > tree->value) tree->right = InsertNode(x, tree->right); //ako veći → desno
-    return tree;
-}
-
-Tree DeleteNode(int x, Tree tree) {
-    if (tree == NULL) return NULL; 
-    if (x < tree->value) tree->left = DeleteNode(x, tree->left); //trazi lijevo
-    else if (x > tree->value) tree->right = DeleteNode(x, tree->right); 
-    else { 
-        if (tree->left == NULL) { 
-            Tree right = tree->right;
-            free(tree);             // oslobadamo memoriju
-            return right;          
-        }
-        if (tree->right == NULL) {  //ako nema desno dijete
-            Tree left = tree->left;
-            free(tree);           
-            return left;            //vracamo lijevo dijete kao novi cvor
-        }
-        //ako ima oba djeteta
-        Position minRight = FindMin(tree->right); //najmanji iz desnog podstabla
-        tree->value = minRight->value;            //zamjena vrijednosti
-        tree->right = DeleteNode(minRight->value, tree->right); //briše taj cvor
+int hashKey(char* countryName, int size) {
+    int sum = 0;
+    for (int i = 0; i < 5 && countryName[i] != '\0'; i++) {
+        sum += countryName[i];
     }
-    return tree;
+    return sum % size;
 }
 
-int PrintInorder(Tree tree) { //inorder lijevo -> root -> desno
-    if (tree == NULL) return 0; 
-    PrintInorder(tree->left);     //ispisi lijevo podstablo
-    printf("%d ", tree->value);
-    PrintInorder(tree->right);    //ispisi desno podstablo
+int initHash(HashTable* ht) {
+    ht->size = TABLE_SIZE;
+    for (int i = 0; i < ht->size; i++)
+        ht->buckets[i] = NULL;
     return 0;
 }
 
-int PrintPreorder(Tree tree) { //preorder root -> lijevo -> desno
-    if (tree == NULL) return 0;
-    printf("%d ", tree->value);   //root
-    PrintPreorder(tree->left);
-    PrintPreorder(tree->right);
+int compareCity(int pop1, char* name1, int pop2, char* name2) {
+    if (pop1 < pop2) return -1;
+    if (pop1 > pop2) return 1;
+    return strcmp(name1, name2);
+}
+
+CityNode* createCity(char* name, int pop) {
+    CityNode* n = malloc(sizeof(CityNode));
+    if (!n) return NULL;
+
+    strcpy(n->name, name);
+    n->pop = pop;
+    n->left = n->right = NULL;
+    return n;
+}
+
+CityNode* insertCity(CityNode* root, char* name, int pop) {
+    if (!root) return createCity(name, pop);
+
+    int c = compareCity(pop, name, root->pop, root->name);
+    if (c < 0) root->left = insertCity(root->left, name, pop);
+    else if (c > 0) root->right = insertCity(root->right, name, pop);
+
+    return root;
+}
+
+int printCityBST(CityNode* root) {
+    if (!root) return 0;
+    printCityBST(root->left);
+    printf("%s %d\n", root->name, root->pop);
+    printCityBST(root->right);
     return 0;
 }
 
-int PrintPostorder(Tree tree) { //postorder lijevo -> desno -> root
-    if (tree == NULL) return 0;
-    PrintPostorder(tree->left);
-    PrintPostorder(tree->right);
-    printf("%d ", tree->value);
+int printCityAbove(CityNode* root, int limit) {
+    if (!root) return 0;
+
+    if (root->pop > limit) {
+        printCityAbove(root->left, limit);
+        printf("%s %d\n", root->name, root->pop);
+        printCityAbove(root->right, limit);
+    }
+    else {
+        printCityAbove(root->right, limit);
+    }
     return 0;
 }
 
-int Height(Tree tree) {
-    if (tree == NULL) return 0;
-    int leftH = Height(tree->left);
-    int rightH = Height(tree->right);
-    return (leftH > rightH ? leftH : rightH) + 1; //max(lijevo, desno) + 1
-}
-
-int PrintLevel(Tree tree, int level) {
-    if (tree == NULL) return 0;
-    if (level == 1) printf("%d ", tree->value); //ako smo na trazenoj razini
-    PrintLevel(tree->left, level - 1);  //rekurzija lijevo
-    PrintLevel(tree->right, level - 1);
+int freeCityBST(CityNode* root) {
+    if (!root) return 0;
+    freeCityBST(root->left);
+    freeCityBST(root->right);
+    free(root);
     return 0;
 }
 
-int PrintLevelOrder(Tree tree) {
-    int h = Height(tree);  //koliko razina ima stablo
-    for (int i = 1; i <= h; i++)
-        PrintLevel(tree, i); 
+CountryNode* createCountry(char* name, char* filename) {
+    CountryNode* c = malloc(sizeof(CountryNode));
+    if (!c) return NULL;
+
+    strcpy(c->name, name);
+    strcpy(c->filename, filename);
+    c->cities = NULL;
+    c->next = NULL;
+    return c;
+}
+
+int insertCountrySorted(CountryNode** head, CountryNode* newNode) {
+    if (!*head || strcmp(newNode->name, (*head)->name) < 0) {
+        newNode->next = *head;
+        *head = newNode;
+        return 0;
+    }
+
+    CountryNode* cur = *head;
+    while (cur->next && strcmp(cur->next->name, newNode->name) < 0)
+        cur = cur->next;
+
+    if (cur->next && strcmp(cur->next->name, newNode->name) == 0) {
+        freeCityBST(newNode->cities);
+        free(newNode);
+        return -1;
+    }
+
+    newNode->next = cur->next;
+    cur->next = newNode;
     return 0;
 }
 
-int DeleteAll(Tree tree) {
-    if (!tree) return 0;
-    DeleteAll(tree->left); 
-    DeleteAll(tree->right); //oslobađanje desnog podstabla
-    free(tree);             //oslobađanje korijena
+CountryNode* findCountry(HashTable* ht, char* countryName) {
+    int index = hashKey(countryName, ht->size);
+    CountryNode* cur = ht->buckets[index];
+
+    while (cur) {
+        int cmp = strcmp(cur->name, countryName);
+        if (cmp == 0) return cur;
+        if (cmp > 0) return NULL;
+        cur = cur->next;
+    }
+    return NULL;
+}
+
+int freeCountryList(CountryNode* head) {
+    while (head) {
+        CountryNode* next = head->next;
+        freeCityBST(head->cities);
+        free(head);
+        head = next;
+    }
     return 0;
 }
 
-int Menu(Tree* tree) {
-    int izbor, x;     
+int loadCities(CityNode** root, char* filename) {
+    FILE* f = fopen(filename, "r");
+    char city[MAX];
+    int pop;
+
+    if (!f) return -1;
+
+    while (fscanf(f, "%63s %d", city, &pop) == 2)
+        *root = insertCity(*root, city, pop);
+
+    fclose(f);
+    return 0;
+}
+
+int loadCountries(HashTable* ht, char* drzaveFile) {
+    FILE* f = fopen(drzaveFile, "r");
+    char cname[MAX], cfile[MAXFILE];
+
+    if (!f) return -1;
+
+    while (fscanf(f, "%63s %127s", cname, cfile) == 2) {
+        CountryNode* c = createCountry(cname, cfile);
+        int idx;
+
+        loadCities(&c->cities, cfile);
+        idx = hashKey(cname, ht->size);
+        insertCountrySorted(&ht->buckets[idx], c);
+    }
+
+    fclose(f);
+    return 0;
+}
+
+int printAll(HashTable* ht) {
+    printf("\nISPIS HASH TABLICE\n");
+    for (int i = 0; i < ht->size; i++) {
+        CountryNode* cur = ht->buckets[i];
+        if (!cur) continue;
+
+        printf("\nBucket %d:\n", i);
+        while (cur) {
+            printf("Drzava: %s\n", cur->name);
+            printCityBST(cur->cities);
+            cur = cur->next;
+            printf("\n");
+        }
+    }
+    return 0;
+}
+
+int menu(HashTable* ht) {
+    int choice, limit;
+    char country[MAX];
+    CountryNode* c;
+
     do {
-        printf("\nIzbor: \n");
-        printf("1 Unesi novi el\n");
-        printf("2 Ispis inorder\n");
-        printf("3 Ispis preorder\n");
-        printf("4 Ispis postorder\n");
-        printf("5 Ispis level order\n");
-        printf("6 Pronadi element\n");
-        printf("7 Brisi element\n");
-        printf("0 Izlaz\n");
+        printf("\nMeni: \n");
+        printf("1 - Ispis svih drzava i gradova\n");
+        printf("2 - Pretraga gradova (pop > X)\n");
+        printf("0 - Izlaz\n");
         printf("Odabir: ");
+        scanf("%d", &choice);
 
-        if (scanf("%d", &izbor) != 1) return 0;
-
-        switch (izbor) {
-        case 1:
-            printf("Unesi broj: ");
-            if (scanf("%d", &x) == 1) *tree = InsertNode(x, *tree);
-            break;
-        case 2:
-            printf("Inorder: ");
-            PrintInorder(*tree); printf("\n");
-            break;
-        case 3:
-            printf("Preorder: ");
-            PrintPreorder(*tree); printf("\n");
-            break;
-        case 4:
-            printf("Postorder: ");
-            PrintPostorder(*tree); printf("\n");
-            break;
-        case 5:
-            printf("Level order: ");
-            PrintLevelOrder(*tree); printf("\n");
-            break;
-        case 6:
-            printf("Trazi broj: ");
-            if (scanf("%d", &x) == 1) {
-                Position p = FindNode(x, *tree);
-                printf(p ? "Pronaden\n" : "Nije pronaden\n");
-            }
-            break;
-        case 7:
-            printf("Brisi broj: ");
-            if (scanf("%d", &x) == 1) *tree = DeleteNode(x, *tree); 
-            break;
-        case 0:
-            break;
-        default:
-            printf("Ponovo odaberi\n");
+        if (choice == 1) {
+            printAll(ht);
         }
-    } while (izbor != 0);
+        else if (choice == 2) {
+            printf("Unesi drzavu: ");
+            scanf("%63s", country);
+
+            printf("Unesi prag X: ");
+            scanf("%d", &limit);
+
+            c = findCountry(ht, country);
+            if (!c)
+                printf("Nema drzave '%s'\n", country);
+            else
+                printCityAbove(c->cities, limit);
+        }
+    } while (choice != 0);
+
     return 0;
 }
