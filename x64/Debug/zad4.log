@@ -1,0 +1,5 @@
+﻿  zadatak4.c
+C:\Users\ninam\Desktop\StrukturePodataka\ProjektniZadatak4\zad4\zad4\zadatak4.c(35,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ninam\Desktop\StrukturePodataka\ProjektniZadatak4\zad4\zad4\zadatak4.c(39,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+  LINK : C:\Users\ninam\Desktop\StrukturePodataka\ProjektniZadatak4\zad4\x64\Debug\zad4.exe not found or not built by the last incremental link; performing full link
+  zad4.vcxproj -> C:\Users\ninam\Desktop\StrukturePodataka\ProjektniZadatak4\zad4\x64\Debug\zad4.exe
